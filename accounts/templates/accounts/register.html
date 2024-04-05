@@ -1,0 +1,26 @@
+{%extends "base.html" %}
+{% block content %}
+
+ <div class='container'>
+      <div class='row'>
+        <div class='col'>
+          <div class='col-md-6 col-12 mx-auto text-color:black font-family:serif'>
+              <p style="color: black;">No account ?</p>
+              <p style="color: black;">Don't worry, register here.</p>
+           <form class="register-form" method='POST'>{% csrf_token %}
+              {{form.as_p}}
+              <button type='submit' class='btn btn-dark'>submit</button>
+            </form>
+
+            <!-- <form method='POST'>{% csrf_token %}
+
+              <input type='text' class='form-control'placeholder="enter name" name='fullname'>
+              <button type='submit' class='btn btn-default'>Submit</button>
+            </form> -->
+          </div>
+        </div>
+      </div>
+   </div>
+ 
+
+{% endblock %}

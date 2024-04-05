@@ -1,0 +1,15 @@
+<div class="card-deck">
+<div class="card border-light bg-light mb-3" style="width: 18rem; height: 35rem;">
+{% if instance.image %}
+  <a href="{{ instance.get_absolute_url }}"> <img class="card-img-top" src="{{ instance.image.url }}" alt="{{ instance.title }} logo" style="max-height: 20rem;"></a>
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title text-primary font-weight-bold">{{instance.title}}</h5>
+    <p class="card-text" style="color: black;">{{instance.description|linebreaks|truncatewords:6}}</p>
+    <a href="{{instance.get_absolute_url}}" class="btn btn-secondary">View</a>
+        	{% include 'products/snippets/update-cart.html' with product=instance cart=cart %}
+
+    </div>
+
+</div>
+</div>
