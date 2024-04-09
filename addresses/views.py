@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme as is_safe_url
 from .forms import AddressForm
 from billing.models import BillingProfile
 from .models import Address
@@ -36,7 +36,7 @@ def checkout_address_create_view(request):
 	
 
 def checkout_address_reuse_view(request):
-	if request.user.is_authenticated():
+	if request.user.is_authenticated:
 		context={}
 		next_=request.GET.get('next')
 		next_post=request.POST.get('next')

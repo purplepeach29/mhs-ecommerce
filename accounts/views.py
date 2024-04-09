@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login,get_user_model
 from django.views.generic import CreateView, FormView
 from django.shortcuts import redirect,render
 from django.http import HttpResponse
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme as is_safe_url
 from .forms import LoginForm,RegisterForm,GuestForm
 from .models import GuestEmail
 

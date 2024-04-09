@@ -92,7 +92,8 @@ class User(AbstractBaseUser):
 	
 
 class Profile(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,
+    on_delete=models.CASCADE,)
 	#extend extra data
 
 class GuestEmail(models.Model):

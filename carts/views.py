@@ -50,7 +50,9 @@ def cart_update(request):
 			cart_obj.products.add(product_obj)
 			added=True
 		request.session['cart_items']=cart_obj.products.count()
-		if request.is_ajax():
+		if request.headers.get('x-requested-with') == 'XMLHttpRequest': 
+
+
 			print("ajax request")
 			json_data={
 			"added": added,
@@ -78,7 +80,7 @@ def checkout_home(request):
 	has_card = False
 
 	if billing_profile is not None:
-		if request.user.is_authenticated():
+		if request.user.is_authenticated:
 			address_qs=Address.objects.filter(billing_profile=billing_profile)
 
 		order_obj,order_object_created=Order.objects.new_or_get(billing_profile,cart_obj)

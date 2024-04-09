@@ -1,7 +1,7 @@
 from django.conf import settings 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme as is_safe_url
 
 from .models import BillingProfile, Card
 # Create your views here.

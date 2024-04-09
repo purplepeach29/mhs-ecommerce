@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-from django.core.urlresolvers import reverse 
+#from django.core.urlresolvers import reverse 
+from django.urls import reverse 
 from django.db.models.signals import post_save,pre_save
 from accounts.models import GuestEmail
 User=settings.AUTH_USER_MODEL
@@ -17,7 +18,7 @@ class BillingProfileManager(models.Manager):
 		guest_email_id=request.session.get('guest_email_id')
 		created=False
 		obj=None
-		if user.is_authenticated():
+		if user.is_authenticated:
 			obj,created=self.model.objects.get_or_create(user=user,email=user.email)
 		elif guest_email_id is not None:
 			guest_email_obj=GuestEmail.objects.get(id=guest_email_id)
@@ -27,7 +28,7 @@ class BillingProfileManager(models.Manager):
 		return obj,created
 
 class BillingProfile(models.Model):
-	user= models.OneToOneField(User,null=True,blank=True)
+	user= models.OneToOneField(User,null=True,blank=True, on_delete=models.CASCADE)
 	email=models.EmailField()
 	active=models.BooleanField(default=True)
 	update=models.DateTimeField(auto_now=True)
@@ -104,7 +105,7 @@ class CardManager(models.Manager):
         return None
 
 class Card(models.Model):
-    billing_profile         = models.ForeignKey(BillingProfile)
+    billing_profile         = models.ForeignKey(BillingProfile, on_delete=models.CASCADE)
     stripe_id               = models.CharField(max_length=120)
     brand                   = models.CharField(max_length=120, null=True, blank=True)
     country                 = models.CharField(max_length=20, null=True, blank=True)
@@ -163,7 +164,7 @@ class ChargeManager(models.Manager):
 
 
 class Charge(models.Model):
-    billing_profile         = models.ForeignKey(BillingProfile)
+    billing_profile         = models.ForeignKey(BillingProfile, on_delete=models.CASCADE)
     stripe_id               = models.CharField(max_length=120)
     status					= models.TextField(null=True, blank = True)
     #payment_method 			= models.TextField(default = "card")

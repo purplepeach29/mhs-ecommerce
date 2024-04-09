@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-
-from django.conf.urls import url,include  
+from django.urls import re_path as url
+from django.conf.urls import include  
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
@@ -38,13 +38,13 @@ urlpatterns = [
     url(r'^logout/$',LogoutView.as_view(),name='logout'), 
     url(r'^api/cart/$',cart_detail_api_view,name='api_cart'), 
 
-    url(r'^cart/',include("carts.urls",namespace='cart')),
+    url(r'^cart/',include(("carts.urls","cart"),namespace='cart')),
     url(r'^billing/payment-method/$',payment_method_view,name="billing-payment-method"),   
     url(r'^billing/payment-method/create/$',payment_method_createview,name="billing-payment-method-endpoint"),   
    	url(r'^register/$',RegisterView.as_view(),name='register'),
     url(r'^bootstrap/$',TemplateView.as_view(template_name='bootstrap/example.html')),
-   	url(r'^products/',include("products.urls",namespace='products')),
-    url(r'^search/',include("search.urls",namespace='search')),
+   	url(r'^products/',include(("products.urls", "products"),namespace='products')),
+    url(r'^search/',include(("search.urls","search"),namespace='search')),
     url(r'^settings/email/$', MarketingPreferenceUpdateView.as_view(), name='marketing-pref'),
     url(r'^webhooks/mailchimp/$', MailchimpWebhookView.as_view(), name='webhooks-mailchimp'),
    	
